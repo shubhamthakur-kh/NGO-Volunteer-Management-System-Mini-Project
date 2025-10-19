@@ -1,1 +1,0 @@
-# NGO-Volunteer-Management-System-Mini-Project
