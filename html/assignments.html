@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Assignments - NGO</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="brand">
+                <div class="logo">NGO</div>
+                <div>
+                    <div class="title">NGO Volunteer Management</div>
+
+                </div>
+                <nav class="nav">
+                    <a href="index.html">Dashboard</a>
+                    <a href="volunteers.html">Volunteers</a>
+                    <a href="assignments.html">Assignments</a>
+                    <a href="donations.html">Donations</a>
+                    <a href="events.html">Events</a>
+                    <a href="donors.html">Donors</a>
+                </nav>
+        </header>
+
+
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                <h3>Assignments</h3>
+                <div class="search"><input id="assign-search" placeholder="Search assignments by volunteer, event..." />
+                </div>
+            </div>
+            <table id="assign-table" class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Volunteer</th>
+                        <th>Event</th>
+                        <th>Assigned Date</th>
+                        <th>Hours</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+
+        <div class="footer">NGO MANAGEMENT SYSTEM 2025 </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="assignments.js"></script>
+</body>
+
+</html>
