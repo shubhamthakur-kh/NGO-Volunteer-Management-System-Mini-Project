@@ -1,80 +1,50 @@
-const events = [
-  {
-    id: 1,
-    project_id: 1,
-    name: "Well Site Survey",
-    date: "2025-10-20",
-    location: "Village A",
-    required: 8,
-  },
-  {
-    id: 2,
-    project_id: 1,
-    name: "Well Installation Day",
-    date: "2025-11-10",
-    location: "Village B",
-    required: 12,
-  },
-  {
-    id: 3,
-    project_id: 2,
-    name: "Tutoring Session Oct",
-    date: "2025-10-05",
-    location: "Community Center",
-    required: 6,
-  },
-  {
-    id: 4,
-    project_id: 3,
-    name: "Relief Supplies Packing",
-    date: "2025-10-18",
-    location: "Warehouse",
-    required: 10,
-  },
-];
-const projects = [
-  {
-    id: 1,
-    name: "Clean Water Initiative",
-    status: "ongoing",
-    goal: 50000,
-    funds: 12000,
-  },
-  {
-    id: 2,
-    name: "Education Support",
-    status: "ongoing",
-    goal: 30000,
-    funds: 8000,
-  },
-  {
-    id: 3,
-    name: "Disaster Relief",
-    status: "planning",
-    goal: 100000,
-    funds: 25000,
-  },
-];
+// Load data from localStorage
+function loadData() {
+    // Load events
+    const storedEvents = localStorage.getItem('events');
+    const events = storedEvents ? JSON.parse(storedEvents) : [];
+    
+    // Load volunteers
+    const storedVols = localStorage.getItem('volunteers');
+    const volunteers = storedVols ? JSON.parse(storedVols) : [];
+    
+    // Update stats
+    updateStats(volunteers.length, events.length);
+    
+    // Display recent donations
+    displayRecentDonations();
+}
+
+function updateStats(volunteerCount, projectCount) {
+    const statVol = document.getElementById('stat-vol');
+    const statProjects = document.getElementById('stat-projects');
+    
+    if (statVol) statVol.textContent = volunteerCount;
+    if (statProjects) statProjects.textContent = projectCount;
+}
+
+function displayRecentDonations() {
+    const storedDonations = localStorage.getItem('donations');
+    const storedDonors = localStorage.getItem('donors');
+    
+    const donations = storedDonations ? JSON.parse(storedDonations) : [];
+    const donors = storedDonors ? JSON.parse(storedDonors) : [];
+    
+    // Get last 3 donations
+    const recentDonations = donations.slice(-3);
+    
+    // Update the donations card if it exists
+    const donationsCard = document.getElementById('donations-card');
+    if (donationsCard && recentDonations.length > 0) {
+        let html = '<div class="list-row"><div><strong>Recent Donations</strong></div></div>';
+        recentDonations.forEach(d => {
+            const donor = donors.find(don => don.id === d.donor_id);
+            html += `<div class="list-row"><div><strong>${donor ? donor.name : 'Unknown'}</strong></div><div class="small">₹${d.amount.toFixed(2)} • ${d.date}</div></div>`;
+        });
+        donationsCard.innerHTML = html;
+    }
+}
+
 function pageInit() {
-  const tbody = document.querySelector("#event-table tbody");
-  events.forEach((e) => {
-    const proj = projects.find((p) => p.id === e.project_id);
-    const tr = document.createElement("tr");
-    tr.innerHTML =
-      "<td>" +
-      e.id +
-      "</td><td>" +
-      (proj ? proj.name : "-") +
-      "</td><td>" +
-      e.name +
-      "</td><td>" +
-      e.date +
-      "</td><td>" +
-      e.location +
-      "</td><td>" +
-      e.required +
-      "</td>";
-    tbody.appendChild(tr);
-  });
-  attachSearch("event-table", "event-search");
+    loadData();
 }

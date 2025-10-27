@@ -1,3 +1,4 @@
+// Event Data
 const events = [
   {
     id: 1,
@@ -32,6 +33,8 @@ const events = [
     required: 10,
   },
 ];
+
+// Project Data
 const projects = [
   {
     id: 1,
@@ -55,26 +58,72 @@ const projects = [
     funds: 25000,
   },
 ];
+
+// Render Table
 function pageInit() {
   const tbody = document.querySelector("#event-table tbody");
+  tbody.innerHTML = ""; // Prevent duplicates
+
   events.forEach((e) => {
     const proj = projects.find((p) => p.id === e.project_id);
     const tr = document.createElement("tr");
-    tr.innerHTML =
-      "<td>" +
-      e.id +
-      "</td><td>" +
-      (proj ? proj.name : "-") +
-      "</td><td>" +
-      e.name +
-      "</td><td>" +
-      e.date +
-      "</td><td>" +
-      e.location +
-      "</td><td>" +
-      e.required +
-      "</td>";
+
+    tr.innerHTML = `
+      <td>${e.id}</td>
+      <td>${proj ? proj.name : "-"}</td>
+      <td>${e.name}</td>
+      <td>${e.date}</td>
+      <td>${e.location}</td>
+      <td>${e.required}</td>
+    `;
+
     tbody.appendChild(tr);
   });
+
   attachSearch("event-table", "event-search");
 }
+
+// Show/Hide Add Event Form
+function toggleEventForm() {
+  const card = document.getElementById("event-add-card");
+  card.style.display = card.style.display === "none" ? "block" : "none";
+}
+
+// Add Event Logic
+function addEvent(e) {
+  e.preventDefault();
+
+  const project_id = parseInt(document.getElementById("event-project").value);
+  const name = document.getElementById("event-name").value;
+  const location = document.getElementById("event-location").value;
+  const date = document.getElementById("event-date").value;
+  const required = parseInt(document.getElementById("event-required").value);
+
+  const newEvent = {
+    id: events.length + 1,
+    project_id,
+    name,
+    date,
+    location,
+    required,
+  };
+
+  events.push(newEvent);
+
+  // Refresh table
+  pageInit();
+
+  // Hide form
+  toggleEventForm();
+
+  // Reset form
+  document.getElementById("add-event-form").reset();
+}
+
+// Make functions globally available for inline HTML calls
+window.toggleEventForm = toggleEventForm;
+window.addEvent = addEvent;
+window.pageInit = pageInit;
+
+// Run on page load
+document.addEventListener("DOMContentLoaded", pageInit);

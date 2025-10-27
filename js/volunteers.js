@@ -20,12 +20,12 @@ function renderVolunteers() {
     volunteers.forEach((vol, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${vol.name}</td>
+            <td>${vol.id || index + 1}</td>
+            <td>${vol.first} ${vol.last}</td>
             <td>${vol.email}</td>
             <td>${vol.phone}</td>
             <td>${vol.city}</td>
-            <td><span class="badge ${vol.status === 'Active' ? 'badge-success' : 'badge-inactive'}">${vol.status}</span></td>
+            <td><span class="badge ${vol.status === 'active' ? 'badge-success' : 'badge-inactive'}">${vol.status.charAt(0).toUpperCase() + vol.status.slice(1)}</span></td>
             <td>${vol.joined}</td>
             <td>
                 <button class="btn-small" onclick="deleteVolunteer(${index})">Delete</button>
@@ -38,19 +38,22 @@ function renderVolunteers() {
 function addVolunteer(event) {
     event.preventDefault();
     
-    const name = document.getElementById('vol-name').value;
+    const first = document.getElementById('vol-first').value;
+    const last = document.getElementById('vol-last').value;
     const email = document.getElementById('vol-email').value;
     const phone = document.getElementById('vol-phone').value;
     const city = document.getElementById('vol-city').value;
     const status = document.getElementById('vol-status').value;
     
-    if (!name || !email || !phone || !city) {
+    if (!first || !last || !email || !phone || !city) {
         alert('Please fill all required fields');
         return;
     }
     
     const newVolunteer = {
-        name,
+        id: volunteers.length + 1,
+        first,
+        last,
         email,
         phone,
         city,

@@ -24,9 +24,67 @@
         <div class="card">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:12px">
                 <h3>Donations</h3>
-                <div class="search"><input id="donation-search" placeholder="Search donations by donor, project..." />
+                <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+                    <div class="search"><input id="donation-search" placeholder="Search donations by donor, project..." /></div>
+                    <button onclick="toggleDonationForm()" class="btn" style="white-space:nowrap">+ Add Donation</button>
                 </div>
             </div>
+            
+            <!-- Add Donation Form -->
+            <div id="donation-add-card" style="display:none;background:#f8f9ff;padding:20px;border-radius:10px;margin-bottom:20px;border:2px solid var(--accent)">
+                <h4 style="margin-top:0">Add New Donation</h4>
+                <form id="add-donation-form" onsubmit="addDonation(event)">
+                    <div class="form-row" style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-bottom:15px">
+                        <div class="form-group" style="margin-bottom:0">
+                            <label for="donation-donor">Donor</label>
+                            <select id="donation-donor" style="width:100%;padding:12px;border:1px solid #e6eef8;border-radius:8px" required>
+                                <option value="">Select Donor</option>
+                                <option value="1">Kiran Charitable Trust</option>
+                                <option value="2">Anita Sharma</option>
+                                <option value="3">Global Aid</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0">
+                            <label for="donation-project">Project</label>
+                            <select id="donation-project" style="width:100%;padding:12px;border:1px solid #e6eef8;border-radius:8px">
+                                <option value="">General</option>
+                                <option value="1">Clean Water Initiative</option>
+                                <option value="2">Education Support</option>
+                                <option value="3">Disaster Relief</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row" style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:15px">
+                        <div class="form-group" style="margin-bottom:0">
+                            <label for="donation-amount">Amount (₹) *</label>
+                            <input type="number" id="donation-amount" min="1" step="0.01" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0">
+                            <label for="donation-date">Date *</label>
+                            <input type="date" id="donation-date" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0">
+                            <label for="donation-type">Type *</label>
+                            <select id="donation-type" style="width:100%;padding:12px;border:1px solid #e6eef8;border-radius:8px" required>
+                                <option value="one_time">One Time</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row" style="margin-bottom:15px">
+                        <div class="form-group" style="margin-bottom:0">
+                            <label for="donation-note">Note</label>
+                            <input type="text" id="donation-note" placeholder="Optional note about the donation">
+                        </div>
+                    </div>
+                    <div style="display:flex;gap:10px">
+                        <button type="submit" class="btn btn-primary" style="flex:1">Add Donation</button>
+                        <button type="button" onclick="toggleDonationForm()" class="btn" style="flex:1;background:#e6eef8;color:#0f172a">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            
             <div class="table-wrapper">
             <table id="donation-table" class="table">
                 <thead>
@@ -45,7 +103,10 @@
         </div>
 
 
-        <div class="footer">NGO MANAGEMENT SYSTEM 2025 </div>
+        <div class="footer">
+            <div class="footer-text">© 2025 NGO Volunteer Management System</div>
+            <div class="footer-subtext">Connecting Communities, Empowering Change</div>
+        </div>
     </div>
 
     <script src="../js/main.js"></script>

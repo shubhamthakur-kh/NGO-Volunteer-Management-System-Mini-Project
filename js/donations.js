@@ -1,61 +1,11 @@
-const donations = [
-  {
-    id: 1,
-    donor_id: 1,
-    project_id: 1,
-    amount: 5000,
-    date: "2025-07-15",
-    type: "one_time",
-    note: "For water wells",
-  },
-  {
-    id: 2,
-    donor_id: 2,
-    project_id: 2,
-    amount: 2000,
-    date: "2025-09-10",
-    type: "one_time",
-    note: "Tutoring materials",
-  },
-  {
-    id: 3,
-    donor_id: 3,
-    project_id: null,
-    amount: 10000,
-    date: "2025-08-01",
-    type: "one_time",
-    note: "General support",
-  },
-  {
-    id: 4,
-    donor_id: 1,
-    project_id: 3,
-    amount: 15000,
-    date: "2025-09-01",
-    type: "one_time",
-    note: "Disaster relief pledge",
-  },
-];
-const donors = [
-  {
-    id: 1,
-    name: "Kiran Charitable Trust",
-    email: "contact@kirantrust.org",
-    phone: "+919123123123",
-  },
-  {
-    id: 2,
-    name: "Anita Sharma",
-    email: "anita.sharma@example.com",
-    phone: "+919999000111",
-  },
-  {
-    id: 3,
-    name: "Global Aid",
-    email: "info@globalaid.org",
-    phone: "+441234567890",
-  },
-];
+let donations = [];
+
+// Load donors and projects from localStorage
+function getDonors() {
+    const stored = localStorage.getItem('donors');
+    return stored ? JSON.parse(stored) : [];
+}
+
 const projects = [
   {
     id: 1,
@@ -79,8 +29,76 @@ const projects = [
     funds: 25000,
   },
 ];
-function pageInit() {
+
+function loadDonations() {
+    const stored = localStorage.getItem('donations');
+    if (stored) {
+        donations = JSON.parse(stored);
+    } else {
+        // Start with empty array if no data exists
+        donations = [];
+        saveDonations();
+    }
+}
+
+function saveDonations() {
+    localStorage.setItem('donations', JSON.stringify(donations));
+}
+function toggleDonationForm() {
+  const form = document.getElementById('donation-add-card');
+  if (form.style.display === 'none') {
+    form.style.display = 'block';
+  } else {
+    form.style.display = 'none';
+    document.getElementById('add-donation-form').reset();
+  }
+}
+
+function addDonation(event) {
+  event.preventDefault();
+  
+  const donorId = parseInt(document.getElementById('donation-donor').value);
+  const projectId = parseInt(document.getElementById('donation-project').value) || null;
+  const amount = parseFloat(document.getElementById('donation-amount').value);
+  const date = document.getElementById('donation-date').value;
+  const type = document.getElementById('donation-type').value;
+  const note = document.getElementById('donation-note').value || '';
+  
+  if (!donorId || !amount || !date || !type) {
+    alert('Please fill all required fields');
+    return;
+  }
+  
+  const newDonation = {
+    id: donations.length > 0 ? Math.max(...donations.map(d => d.id)) + 1 : 1,
+    donor_id: donorId,
+    project_id: projectId,
+    amount: amount,
+    date: date,
+    type: type,
+    note: note
+  };
+  
+  donations.push(newDonation);
+  saveDonations();
+  
+  // Refresh the table
+  renderDonations();
+  
+  // Reset form and hide it
+  document.getElementById('add-donation-form').reset();
+  toggleDonationForm();
+  
+  alert('Donation added successfully!');
+}
+
+function renderDonations() {
   const tbody = document.querySelector("#donation-table tbody");
+  if (!tbody) return;
+  
+  const donors = getDonors();
+  
+  tbody.innerHTML = '';
   donations.forEach((d) => {
     const donor = donors.find((x) => x.id === d.donor_id);
     const proj = projects.find((x) => x.id === d.project_id);
@@ -103,3 +121,40 @@ function pageInit() {
   });
   attachSearch("donation-table", "donation-search");
 }
+
+function populateDonorDropdown() {
+    const donors = getDonors();
+    const donorSelect = document.getElementById('donation-donor');
+    
+    if (donorSelect) {
+        // Clear existing options except the first one
+        donorSelect.innerHTML = '<option value="">Select Donor</option>';
+        
+        // Add donors from localStorage
+        donors.forEach(donor => {
+            const option = document.createElement('option');
+            option.value = donor.id;
+            option.textContent = donor.name;
+            donorSelect.appendChild(option);
+        });
+    }
+}
+
+function pageInit() {
+  loadDonations();
+  renderDonations();
+  
+  // Populate donor dropdown with data from localStorage
+  populateDonorDropdown();
+  
+  // Listen for changes in donors to update dropdown
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'donors') {
+      populateDonorDropdown();
+    }
+  });
+}
+
+// Make functions globally available
+window.toggleDonationForm = toggleDonationForm;
+window.addDonation = addDonation;
