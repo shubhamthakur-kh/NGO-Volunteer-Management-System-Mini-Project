@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Donations - NGO</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet"  href="../css/style.css" />
 </head>
 
 <body>
@@ -15,25 +15,34 @@
                 <div class="logo">NGO</div>
                 <div>
                     <div class="title">NGO Volunteer Management</div>
-
                 </div>
-                <nav class="nav">
-                    <a href="index.html">Dashboard</a>
-                    <a href="volunteers.html">Volunteers</a>
-                    <a href="assignments.html">Assignments</a>
-                    <a href="donations.html">Donations</a>
-                    <a href="events.html">Events</a>
-                    <a href="donors.html">Donors</a>
-                </nav>
+            </div>
+            <nav class="nav" id="main-nav">
+                <a href="index.html">Dashboard</a>
+                <a href="volunteers.html">Volunteers</a>
+                <a href="assignments.html">Assignments</a>
+                <a href="donations.html" class="active">Donations</a>
+                <a href="events.html">Events</a>
+                <a href="donors.html">Donors</a>
+                <a href="signin.html">Sign In</a>
+                <a href="signup.html">Sign Up</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </header>
 
 
         <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:12px">
                 <h3>Donations</h3>
                 <div class="search"><input id="donation-search" placeholder="Search donations by donor, project..." />
                 </div>
             </div>
+            <div class="table-wrapper">
             <table id="donation-table" class="table">
                 <thead>
                     <tr>
@@ -47,14 +56,22 @@
                 </thead>
                 <tbody></tbody>
             </table>
+            </div>
         </div>
 
 
         <div class="footer">NGO MANAGEMENT SYSTEM 2025 </div>
     </div>
 
-    <script src="main.js"></script>
-    <script src="donations.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/donations.js"></script>
+    <script>
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const nav = document.getElementById('main-nav');
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - NGO Volunteer</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="brand">
+                <div class="logo">NGO</div>
+                <div>
+                    <div class="title">NGO Volunteer Management</div>
+                </div>
+            </div>
+            <nav class="nav" id="main-nav">
+                <a href="index.html">Dashboard</a>
+                <a href="volunteers.html">Volunteers</a>
+                <a href="assignments.html">Assignments</a>
+                <a href="donations.html">Donations</a>
+                <a href="events.html">Events</a>
+                <a href="donors.html">Donors</a>
+                <a href="signin.html">Sign In</a>
+                <a href="signup.html" class="active">Sign Up</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <div class="auth-wrapper">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h1>Join Us Today</h1>
+                    <p>Create your volunteer account and start making a difference</p>
+                </div>
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="your.email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Create a strong password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                    <div class="switch-link">
+                        Already have an account? <a href="signin.html">Sign In here</a>
+                    </div>
+                </form>
+                <div id="auth-message" class="message"></div>
+            </div>
+        </div>
+
+        <div class="footer">© 2025 NGO Volunteer Management System</div>
+    </div>
+
+    <script src="../js/authentication.js"></script>
+    <script src="../js/script.js"></script>
+    <script>
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const nav = document.getElementById('main-nav');
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

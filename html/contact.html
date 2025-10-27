@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - NGO Volunteer</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="brand">
+                <div class="logo">NGO</div>
+                <div>
+                    <div class="title">NGO Volunteer Management</div>
+                </div>
+            </div>
+            <nav class="nav" id="main-nav">
+                <a href="index.html">Dashboard</a>
+                <a href="volunteers.html">Volunteers</a>
+                <a href="assignments.html">Assignments</a>
+                <a href="donations.html">Donations</a>
+                <a href="events.html">Events</a>
+                <a href="donors.html">Donors</a>
+                <a href="signin.html">Sign In</a>
+                <a href="signup.html">Sign Up</a>
+                <a href="contact.html" class="active">Contact</a>
+            </nav>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </header>
+
+        <main>
+            <h1>Contact Us</h1>
+            <p style="text-align:center;color:var(--muted);margin-bottom:30px;">If you have any questions, please fill out the form below. Note: This form is for demonstration purposes only and does not send emails.</p>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="cname">Name</label>
+                    <input type="text" id="cname" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="cemail">Email Address</label>
+                    <input type="email" id="cemail" placeholder="your.email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" rows="5" placeholder="Enter your message here..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </main>
+
+        <div class="footer">© 2025 NGO Volunteer Management System</div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script>
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const nav = document.getElementById('main-nav');
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+    </script>
+</body>
+</html> 

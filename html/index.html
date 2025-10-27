@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Dashboard - NGO</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="../css/style.css" />
 </head>
 
 <body>
@@ -17,37 +17,45 @@
                     <div class="title">NGO Volunteer Management</div>
                 </div>
             </div>
-            <nav class="nav">
-                <a href="index.html">Dashboard</a>
+            <nav class="nav" id="main-nav">
+                <a href="index.html" class="active">Dashboard</a>
                 <a href="volunteers.html">Volunteers</a>
                 <a href="assignments.html">Assignments</a>
                 <a href="donations.html">Donations</a>
                 <a href="events.html">Events</a>
                 <a href="donors.html">Donors</a>
+                <a href="signin.html">Sign In</a>
+                <a href="signup.html">Sign Up</a>
+                <a href="contact.html">Contact</a>
             </nav>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </header>
 
 
         <div class="grid">
             <div class="card">
                 <h3>Volunteers</h3>
-                <div class="kv">Total volunteers: <strong id="stat-vol"></strong></div>
+                <div class="kv">Total Volunteers: <strong id="stat-vol"></strong></div>
                 <p style="margin-top:10px"><a class="btn" href="volunteers.html">Manage Volunteers</a></p>
             </div>
 
             <div class="card">
                 <h3>Projects</h3>
-                <div class="kv">Active projects: <strong id="stat-projects"></strong></div>
+                <div class="kv">Active Projects: <strong id="stat-projects"></strong></div>
                 <p style="margin-top:10px"><a class="btn" href="events.html">View Events</a></p>
             </div>
 
             <div class="card">
                 <h3>Next Event</h3>
-                <div class="kv" id="stat-next"></div>
+                <div class="kv" id="stat-next">Upcoming Events:</div>
                 <p style="margin-top:10px"><a class="btn" href="events.html">Events</a></p>
             </div>
 
-            <div class="card" style="grid-column: span 3;">
+            <div class="card" style="grid-column: span 3;" id="donations-card">
                 <h3>Recent Donations</h3>
                 <div class="list-row">
                     <div><strong>Kiran Charitable Trust</strong></div>
@@ -68,8 +76,16 @@
         <div class="footer">NGO MANAGEMENT SYSTEM 2025 </div>
     </div>
 
-    <script src="main.js"></script>
-    <script src="index.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/index.js"></script>
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const nav = document.getElementById('main-nav');
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+    </script>
 </body>
 
 </html>
