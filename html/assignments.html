@@ -17,22 +17,7 @@
                     <div class="title">NGO Volunteer Management</div>
                 </div>
             </div>
-            <nav class="nav" id="main-nav">
-                <a href="index.html">Dashboard</a>
-                <a href="volunteers.html">Volunteers</a>
-                <a href="assignments.html" class="active">Assignments</a>
-                <a href="donations.html">Donations</a>
-                <a href="events.html">Events</a>
-                <a href="donors.html">Donors</a>
-                <a href="signin.html">Sign In</a>
-                <a href="signup.html">Sign Up</a>
-                <a href="contact.html">Contact</a>
-            </nav>
-            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <nav class="nav" id="main-nav"></nav>
         </header>
 
 
@@ -65,14 +50,9 @@
     </div>
 
     <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/navigation.js"></script>
     <script src="../js/assignments.js"></script>
-    <script>
-        const menuToggle = document.getElementById('mobile-menu-toggle');
-        const nav = document.getElementById('main-nav');
-        menuToggle.addEventListener('click', () => {
-            nav.classList.toggle('active');
-        });
-    </script>
 </body>
 
 </html>
