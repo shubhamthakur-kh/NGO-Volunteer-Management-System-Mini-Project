@@ -1,4 +1,5 @@
 let events = [];
+
 const projects = [
   {
     id: 1,
@@ -24,19 +25,19 @@ const projects = [
 ];
 
 function loadEvents() {
-    const stored = localStorage.getItem('events');
-    if (stored) {
-        events = JSON.parse(stored);
-    } else {
-        // Start with empty array if no data exists
-        events = [];
-        saveEvents();
-    }
+  const stored = localStorage.getItem('events');
+  if (stored) {
+    events = JSON.parse(stored);
+  } else {
+    events = [];
+    saveEvents();
+  }
 }
 
 function saveEvents() {
-    localStorage.setItem('events', JSON.stringify(events));
+  localStorage.setItem('events', JSON.stringify(events));
 }
+
 function toggleEventForm() {
   const form = document.getElementById('event-add-card');
   if (form.style.display === 'none') {
@@ -48,7 +49,7 @@ function toggleEventForm() {
 }
 
 function addEvent(event) {
-  event.preventDefault();
+  event.preventDefault(); 
   
   const projectId = parseInt(document.getElementById('event-project').value);
   const name = document.getElementById('event-name').value;
@@ -60,7 +61,17 @@ function addEvent(event) {
     alert('Please fill all required fields');
     return;
   }
+
   
+  const selectedDate = new Date(date);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // remove time part for fair comparison
+
+  if (selectedDate < today) {
+    alert('Event date cannot be in the past.');
+    return;
+  }
+
   const newEvent = {
     id: events.length > 0 ? Math.max(...events.map(e => e.id)) + 1 : 1,
     project_id: projectId,
@@ -113,8 +124,14 @@ function renderEvents() {
 function pageInit() {
   loadEvents();
   renderEvents();
+
+  const dateInput = document.getElementById("event-date");
+  if (dateInput) {
+    dateInput.min = new Date().toISOString().split("T")[0];
+  }
 }
 
 // Make functions globally available
 window.toggleEventForm = toggleEventForm;
 window.addEvent = addEvent;
+window.pageInit = pageInit;

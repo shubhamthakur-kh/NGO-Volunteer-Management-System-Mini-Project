@@ -44,6 +44,7 @@ function loadDonations() {
 function saveDonations() {
     localStorage.setItem('donations', JSON.stringify(donations));
 }
+
 function toggleDonationForm() {
   const form = document.getElementById('donation-add-card');
   if (form.style.display === 'none') {
@@ -66,6 +67,16 @@ function addDonation(event) {
   
   if (!donorId || !amount || !date || !type) {
     alert('Please fill all required fields');
+    return;
+  }
+
+  // ✅ Date validation — prevent past dates
+  const selectedDate = new Date(date);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // remove time for fair comparison
+
+  if (selectedDate < today) {
+    alert('Donation date cannot be in the past.');
     return;
   }
   
@@ -153,8 +164,15 @@ function pageInit() {
       populateDonorDropdown();
     }
   });
+
+  // ✅ Set min date for donation-date input
+  const dateInput = document.getElementById("donation-date");
+  if (dateInput) {
+    dateInput.min = new Date().toISOString().split("T")[0];
+  }
 }
 
 // Make functions globally available
 window.toggleDonationForm = toggleDonationForm;
 window.addDonation = addDonation;
+window.pageInit = pageInit;
